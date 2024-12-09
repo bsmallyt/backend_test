@@ -1,1 +1,15 @@
 FROM debian:latest
+
+RUN apt update && apt install git g++ golang-go -y
+
+RUN cd /usr && git clone https://github.com/bsmallyt/backend_test.git
+
+RUN cd /usr/backend_test/api.itsbensmall/ && g++ checker.cpp -o checker.exe
+
+EXPOSE 8090
+
+WORKDIR /usr/backend_test/api.itsbensmall/
+
+RUN go build -o api .
+
+CMD ["./api"]
