@@ -1,15 +1,20 @@
 FROM debian:latest
 
-RUN apt update && apt install git g++ golang-go -y
+RUN apt update && apt install nodejs npm apache2 git g++ golang-go supervisor -y
 
-RUN cd /usr && git clone https://github.com/bsmallyt/backend_test.git
+RUN npm install -g @angular/cli -y
+RUN cd /usr && git clone https://github.com/bsmallyt/itsbensmall.com.git 
+RUN cd /usr/itsbensmall.com && npm install && ng build itsbensmall
+RUN cp -r /usr/itsbensmall.com/dist/itsbensmall /var/www/html
+RUN sed -i 's#/var/www/html#/var/www/html/itsbensmall/browser#' /etc/apache2/sites-enabled/000-default.conf
 
-RUN cd /usr/backend_test/api.itsbensmall/ && g++ checker.cpp -o checker.exe
+RUN cd /usr && git clone https://github.com/bsmallyt/api.itsbensmall.com.git
+RUN cd /usr/api.itsbensmall.com/ && g++ checker.cpp -o checker.exe
+
+RUN mkdir -p /etc/supervisor/conf.d
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 EXPOSE 8090
+EXPOSE 80 
 
-WORKDIR /usr/backend_test/api.itsbensmall/
-
-RUN go build -o api .
-
-CMD ["./api"]
+CMD ["supervisord", "-n"]

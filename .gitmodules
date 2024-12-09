@@ -1,0 +1,6 @@
+[submodule "api.itsbensmall.com"]
+	path = api.itsbensmall.com
+	url = https://github.com/bsmallyt/api.itsbensmall.com.git
+[submodule "itsbensmall.com"]
+	path = itsbensmall.com
+	url = https://github.com/bsmallyt/itsbensmall.com.git
