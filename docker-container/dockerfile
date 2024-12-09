@@ -14,7 +14,7 @@ RUN cd /usr/api.itsbensmall.com/ && g++ checker.cpp -o checker.exe
 RUN mkdir -p /etc/supervisor/conf.d
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-EXPOSE 8090
+EXPOSE 90
 EXPOSE 80 
 
 CMD ["supervisord", "-n"]
