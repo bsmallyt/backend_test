@@ -9,7 +9,7 @@ RUN cp -r /usr/itsbensmall.com/dist/itsbensmall /var/www/html
 RUN sed -i 's#/var/www/html#/var/www/html/itsbensmall/browser#' /etc/apache2/sites-enabled/000-default.conf
 
 RUN cd /usr && git clone https://github.com/bsmallyt/api.itsbensmall.com.git
-RUN cd /usr/api.itsbensmall.com/ && g++ checker.cpp -o checker.exe
+RUN cd /usr/api.itsbensmall.com/spellcheck-cpp/ && g++ checker.cpp -o checker.exe
 
 RUN mkdir -p /etc/supervisor/conf.d
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
